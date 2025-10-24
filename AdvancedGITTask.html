@@ -230,46 +230,46 @@
     <hr>
 
     <article>
-      <h2>Exercise 2: Parallel PR Integration with Review Iteration</h2>
-      <p>This exercise shows a scenario where both developers work simultaneously on different features. Luis integrates first after feedback, and Ana follows with her own review cycle.</p>
+  <h2>Exercise 2: Sequential PR Integration with Luis First, Then Ana</h2>
+  <p>This exercise shows a scenario where Luis completes his pull request integration first, including feedback and fixes. After Luis's changes are merged into <code>main</code>, Ana updates her branch and proceeds with her own PR workflow.</p>
 
-      <section>
-        <h3>Luis's Workflow (ft_two branch)</h3>
-        <ol>
-          <li><strong>GIT - Luis:</strong> Did commits #2 and #5 in branch <code>ft_two</code></li>
-          <li><strong>GIT - Luis:</strong> <code>git checkout main</code> — Switch to the main branch</li>
-          <li><strong>GIT - Luis:</strong> <code>git pull origin main</code> — Fetch and merge the latest changes from remote main</li>
-          <li><strong>GIT - Luis:</strong> <code>git checkout ft_two</code> — Return to the feature branch</li>
-          <li><strong>GIT - Luis:</strong> <code>git rebase main ft_two</code> — Reapply ft_two commits on top of the updated main</li>
-          <li><strong>GIT - Luis:</strong> <code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> — Resolve each merge conflict and continue the rebase process</li>
-          <li><strong>GIT - Luis:</strong> <code>git push origin ft_two</code> — Push the rebased feature branch to the remote repository</li>
-          <li><strong>GITHUB - Luis:</strong> He creates a new PR with <em>base: main</em>, <em>compare: ft_two</em> and specifies title and description</li>
-          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews his PR changes and finds some issue with it</li>
-          <li><strong>GIT - Luis:</strong> He does commit #7 to fix this issue</li>
-          <li><strong>GIT - Luis:</strong> <code>git push origin ft_two</code> — Push the fix to update the PR automatically</li>
-          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews the updated PR and approves it</li>
-          <li><strong>GITHUB - Luis:</strong> He has integrated the changes of <code>ft_two</code> into <code>main</code> correctly</li>
-        </ol>
-      </section>
+  <section>
+    <h3>Luis's Workflow (ft_two branch)</h3>
+    <ol>
+      <li><strong>GIT - Luis:</strong> Did commits #2 and #5 in branch <code>ft_two</code></li>
+      <li><strong>GIT - Luis:</strong> <code>git checkout main</code> — Switch to the main branch</li>
+      <li><strong>GIT - Luis:</strong> <code>git pull origin main</code> — Fetch and merge the latest main branch changes</li>
+      <li><strong>GIT - Luis:</strong> <code>git checkout ft_two</code> — Return to the feature branch</li>
+      <li><strong>GIT - Luis:</strong> <code>git rebase main ft_two</code> — Reapply ft_two commits on top of the updated main</li>
+      <li><strong>GIT - Luis:</strong> <code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> — Resolve each merge conflict and continue the rebase process</li>
+      <li><strong>GIT - Luis:</strong> <code>git push origin ft_two</code> — Push the rebased feature branch to the remote repository</li>
+      <li><strong>GITHUB - Luis:</strong> He creates a new PR with <em>base: main</em>, <em>compare: ft_two</em> and specifies title and description</li>
+      <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews his PR changes and finds some issue with it</li>
+      <li><strong>GIT - Luis:</strong> He does commit #7 to fix this issue</li>
+      <li><strong>GIT - Luis:</strong> <code>git push origin ft_two</code> — Push the fix to update the PR automatically</li>
+      <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews the updated PR and approves it</li>
+      <li><strong>GITHUB - Luis:</strong> He has integrated the changes of <code>ft_two</code> into <code>main</code> correctly</li>
+    </ol>
+  </section>
 
-      <section>
-        <h3>Ana's Workflow (ft_one branch)</h3>
-        <ol>
-          <li><strong>GIT - Ana:</strong> Did commits #1 and #4 in branch <code>ft_one</code></li>
-          <li><strong>GIT - Ana:</strong> <code>git checkout main</code> — Switch to the main branch</li>
-          <li><strong>GIT - Ana:</strong> <code>git pull origin main</code> — Fetch and merge the latest changes from remote main (including Luis's merged changes)</li>
-          <li><strong>GIT - Ana:</strong> <code>git checkout ft_one</code> — Return to the feature branch</li>
-          <li><strong>GIT - Ana:</strong> <code>git rebase main ft_one</code> — Reapply ft_one commits on top of the updated main</li>
-          <li><strong>GIT - Ana:</strong> <code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> — Resolve each merge conflict and continue the rebase process</li>
-          <li><strong>GIT - Ana:</strong> <code>git push origin ft_one</code> — Push the rebased feature branch to the remote repository</li>
-          <li><strong>GITHUB - Ana:</strong> She creates a new PR with <em>base: main</em>, <em>compare: ft_one</em> and specifies title and description</li>
-          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews her PR changes and finds some issue with it</li>
-          <li><strong>GIT - Ana:</strong> She does commit #8 to fix this issue</li>
-          <li><strong>GIT - Ana:</strong> <code>git push origin ft_one</code> — Push the fix to update the PR automatically</li>
-          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews the updated PR and approves it</li>
-          <li><strong>GITHUB - Ana:</strong> She has integrated the changes of <code>ft_one</code> into <code>main</code> correctly</li>
-        </ol>
-      </section>
+  <section>
+    <h3>Ana's Workflow (ft_one branch)</h3>
+    <ol>
+      <li><strong>GIT - Ana:</strong> Did commits #1 and #4 in branch <code>ft_one</code></li>
+      <li><strong>GIT - Ana:</strong> <code>git checkout main</code> — Switch to the main branch after Luis's changes are merged</li>
+      <li><strong>GIT - Ana:</strong> <code>git pull origin main</code> — Fetch and merge the latest changes now including Luis's integrated commits</li>
+      <li><strong>GIT - Ana:</strong> <code>git checkout ft_one</code> — Return to her feature branch</li>
+      <li><strong>GIT - Ana:</strong> <code>git rebase main ft_one</code> — Reapply ft_one commits on top of the updated main reflecting Luis's changes</li>
+      <li><strong>GIT - Ana:</strong> <code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> — Resolve any merge conflicts and continue the rebase</li>
+      <li><strong>GIT - Ana:</strong> <code>git push origin ft_one</code> — Push her updated feature branch to remote</li>
+      <li><strong>GITHUB - Ana:</strong> She creates a new PR with <em>base: main</em>, <em>compare: ft_one</em> and specifies title and description</li>
+      <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews her PR changes and finds some issue with it</li>
+      <li><strong>GIT - Ana:</strong> She does commit #8 to fix this issue</li>
+      <li><strong>GIT - Ana:</strong> <code>git push origin ft_one</code> — Push the fix to update the PR automatically</li>
+      <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews the updated PR and approves it</li>
+      <li><strong>GITHUB - Ana:</strong> She has integrated the changes of <code>ft_one</code> into <code>main</code> correctly</li>
+    </ol>
+  </section>
     </article>
   </main>
 

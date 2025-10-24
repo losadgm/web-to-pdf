@@ -2,306 +2,279 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Using Advanced GIT Exercises</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Git Pull Request Methodology Exercises - Step-by-step workflows for integrating feature branches">
+  <title>Git PR Methodology Exercises</title>
   <style>
+    /* ===========================
+       CSS Reset & Base Styles
+       =========================== */
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    body { 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #2d3748;
-      min-height: 100vh;
-      padding: 2rem;
-      line-height: 1.7;
+    html {
+      font-size: 16px;
+      line-height: 1.6;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.3), transparent 50%);
-      pointer-events: none;
-      z-index: -1;
+    body {
+      font-family: "Georgia", "Times New Roman", serif;
+      color: #2c2c2c;
+      background-color: #ffffff;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 20mm;
+    }
+
+    /* ===========================
+       HTML5 Semantic Elements
+       =========================== */
+
+    header {
+      margin-bottom: 2em;
+      padding-bottom: 1em;
+      border-bottom: 2px solid #333333;
     }
 
     main {
-      max-width: 860px;
-      margin: 0 auto;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 3rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
-                  0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+      margin-bottom: 2em;
     }
 
-    h1 { 
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 2rem;
-      letter-spacing: -0.5px;
+    article {
+      margin-bottom: 2em;
+      padding-bottom: 1.5em;
+      border-bottom: 1px solid #e0e0e0;
+      page-break-inside: avoid;
+    }
+
+    article:last-child {
+      border-bottom: none;
+    }
+
+    section {
+      margin-bottom: 1.5em;
+    }
+
+    footer {
+      margin-top: 2em;
+      padding-top: 1em;
+      border-top: 1px solid #cccccc;
+      font-size: 0.9em;
+      color: #666666;
       text-align: center;
     }
 
-    h2 { 
-      color: #4c51bf;
-      font-size: 1.3rem;
+    /* ===========================
+       Typography - Headings
+       =========================== */
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Arial", "Helvetica", sans-serif;
+      color: #1a1a1a;
+      margin-top: 1.5em;
+      margin-bottom: 0.75em;
       font-weight: 600;
-      margin: 1.5rem 0 1rem;
-      padding-left: 1rem;
-      border-left: 4px solid #667eea;
-      transition: all 0.3s ease;
+      line-height: 1.3;
+      page-break-after: avoid;
     }
 
-    h2:hover {
-      border-left-width: 8px;
-      padding-left: 1.5rem;
+    h1 {
+      font-size: 2.25rem;
+      border-bottom: 2px solid #333333;
+      padding-bottom: 0.3em;
+      margin-top: 0;
     }
 
-    ul { 
-      margin-bottom: 2rem;
-      padding-left: 1.5rem;
+    h2 {
+      font-size: 1.75rem;
+      border-bottom: 1px solid #666666;
+      padding-bottom: 0.25em;
     }
 
-    li { 
-      margin-bottom: 1rem;
-      position: relative;
-      padding-left: 0.5rem;
-      transition: transform 0.2s ease;
+    h3 {
+      font-size: 1.4rem;
     }
 
-    li:hover {
-      transform: translateX(5px);
+    /* ===========================
+       Paragraphs & Text Elements
+       =========================== */
+
+    p {
+      margin-bottom: 1em;
+      text-align: justify;
+      orphans: 3;
+      widows: 3;
     }
 
-    em { 
-      color: #047857;
-      font-style: normal;
-      background: linear-gradient(120deg, #d1fae5 0%, #a7f3d0 100%);
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
-      font-weight: 500;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      transition: all 0.2s ease;
+    strong, b {
+      font-weight: bold;
+      color: #1a1a1a;
     }
 
-    em:hover {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transform: translateY(-1px);
+    em, i {
+      font-style: italic;
     }
 
-    code { 
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-      color: #f1f5f9;
-      padding: 0.3rem 0.6rem;
-      border-radius: 6px;
-      font-family: 'Courier New', Courier, monospace;
+    code {
+      font-family: "Courier New", "Consolas", monospace;
       font-size: 0.9em;
-      font-weight: 500;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      transition: all 0.2s ease;
-      display: inline-block;
+      background-color: #f4f4f4;
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
+      color: #d14;
     }
 
-    code:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      transform: translateY(-2px);
+    /* ===========================
+       Lists
+       =========================== */
+
+    ol {
+      margin-bottom: 1em;
+      margin-left: 2em;
+      padding-left: 0;
+      list-style-type: decimal;
     }
 
-    details { 
-      margin-bottom: 2rem;
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(148, 163, 184, 0.2);
+    li {
+      margin-bottom: 0.4em;
     }
 
-    details:hover {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-      transform: translateY(-2px);
+    /* ===========================
+       Horizontal Rules
+       =========================== */
+
+    hr {
+      border: none;
+      border-top: 1px solid #cccccc;
+      margin: 2em 0;
+      page-break-after: avoid;
     }
 
-    details[open] {
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    }
+    /* ===========================
+       Print & PDF Styles
+       =========================== */
 
-    summary { 
-      font-weight: 700;
-      padding: 1.25rem 1.5rem;
-      cursor: pointer;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      font-size: 1.1rem;
-      user-select: none;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    summary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-      transform: translateX(-100%);
-      transition: transform 0.5s ease;
-    }
-
-    summary:hover::before {
-      transform: translateX(100%);
-    }
-
-    summary:hover {
-      background: linear-gradient(135deg, #5568d3 0%, #6b3f8f 100%);
-      padding-left: 2rem;
-    }
-
-    summary::marker {
-      font-size: 1.2em;
-    }
-
-    details[open] summary {
-      border-bottom: 3px solid #667eea;
-      margin-bottom: 1.5rem;
-    }
-
-    details > *:not(summary) {
-      padding: 0 1.5rem 1.5rem;
-      animation: slideDown 0.3s ease;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 768px) {
+    @media print {
       body {
-        padding: 1rem;
+        margin: 0;
+        padding: 15mm;
+        font-size: 12pt;
       }
 
-      main {
-        padding: 1.5rem;
-        border-radius: 12px;
+      h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
       }
 
-      h1 {
-        font-size: 1.8rem;
+      p, ol, article {
+        page-break-inside: avoid;
       }
 
-      h2 {
-        font-size: 1.1rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+      @page {
+        margin: 20mm;
+        size: A4;
       }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Git Pull Request Methodology Exercises</h1>
+    <p><strong>Topic:</strong> Feature Branch Integration Using PR Workflow</p>
+  </header>
+
   <main>
-    <h1>Using Advanced GIT Exercises</h1>
+    <article>
+      <h2>Exercise 1: Sequential PR Integration</h2>
+      <p>This exercise demonstrates how two developers integrate their feature branches into the main branch using a pull request methodology. Ana completes her integration first, followed by Luis.</p>
 
-    <details open>
-      <summary>Task 1: Parallel Feature Branch Integration (Ana & Luis)</summary>
-      <h2>Ana: Merge <code>ft_one</code> into <code>main</code>, with PR feedback</h2>
-      <ul>
-        <li><em>Create commits #1 and #4 in feature branch ft_one</em></li>
-        <li><code>git checkout main</code> <em>Switch to main to fetch updates</em></li>
-        <li><code>git pull origin main</code> <em>Get the latest main branch changes</em></li>
-        <li><code>git checkout ft_one</code> <em>Return to ft_one for rebasing</em></li>
-        <li><code>git rebase main ft_one</code> <em>Rebase ft_one onto main</em></li>
-        <li><code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> <em>Resolve each conflict as prompted</em></li>
-        <li><code>git push origin ft_one</code> <em>Push completed rebased branch to remote</em></li>
-        <li><em>Create a pull request: base=main, compare=ft_one, add title/description</em></li>
-        <li><em>Reviewer reviews PR and requests changes</em></li>
-        <li><em>Perform commit #7 to resolve review issues</em></li>
-        <li><code>git push origin ft_one</code> <em>Update PR with fixes</em></li>
-        <li><em>Reviewer approves the updated PR</em></li>
-        <li><em>ft_one successfully merged into main via PR</em></li>
-      </ul>
+      <section>
+        <h3>Ana's Workflow (ft_one branch)</h3>
+        <ol>
+          <li><strong>GIT - Ana:</strong> Did commits #1 and #4 in branch <code>ft_one</code></li>
+          <li><strong>GIT - Ana:</strong> <code>git checkout main</code> — Switch to the main branch</li>
+          <li><strong>GIT - Ana:</strong> <code>git pull origin main</code> — Fetch and merge the latest changes from remote main</li>
+          <li><strong>GIT - Ana:</strong> <code>git checkout ft_one</code> — Return to the feature branch</li>
+          <li><strong>GIT - Ana:</strong> <code>git rebase main ft_one</code> — Reapply ft_one commits on top of the updated main</li>
+          <li><strong>GIT - Ana:</strong> <code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> — Resolve each merge conflict and continue the rebase process</li>
+          <li><strong>GIT - Ana:</strong> <code>git push origin ft_one</code> — Push the rebased feature branch to the remote repository</li>
+          <li><strong>GITHUB - Ana:</strong> She creates a new PR with <em>base: main</em>, <em>compare: ft_one</em> and specifies title and description</li>
+          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews her PR changes and finds some issue with it</li>
+          <li><strong>GIT - Ana:</strong> She does commit #7 to fix this issue</li>
+          <li><strong>GIT - Ana:</strong> <code>git push origin ft_one</code> — Push the fix to update the PR automatically</li>
+          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews the updated PR and approves it</li>
+          <li><strong>GITHUB - Ana:</strong> She has integrated the changes of <code>ft_one</code> into <code>main</code> correctly</li>
+        </ol>
+      </section>
 
-      <h2>Luis: Merge <code>ft_two</code> into <code>main</code>, with PR feedback</h2>
-      <ul>
-        <li><em>Create commits #2 and #5 in feature branch ft_two</em></li>
-        <li><code>git checkout main</code> <em>Switch to main to fetch updates</em></li>
-        <li><code>git pull origin main</code> <em>Get the latest main branch changes</em></li>
-        <li><code>git checkout ft_two</code> <em>Return to ft_two for rebasing</em></li>
-        <li><code>git rebase main ft_two</code> <em>Rebase ft_two onto main</em></li>
-        <li><code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> <em>Resolve each conflict as prompted</em></li>
-        <li><code>git push origin ft_two</code> <em>Push completed rebased branch to remote</em></li>
-        <li><em>Create a pull request: base=main, compare=ft_two, add title/description</em></li>
-        <li><em>Reviewer examines PR and approves it</em></li>
-        <li><em>ft_two successfully merged into main via PR</em></li>
-      </ul>
-    </details>
+      <section>
+        <h3>Luis's Workflow (ft_two branch)</h3>
+        <ol>
+          <li><strong>GIT - Luis:</strong> Did commits #2 and #5 in branch <code>ft_two</code></li>
+          <li><strong>GIT - Luis:</strong> <code>git checkout main</code> — Switch to the main branch</li>
+          <li><strong>GIT - Luis:</strong> <code>git pull origin main</code> — Fetch and merge the latest changes from remote main (including Ana's merged changes)</li>
+          <li><strong>GIT - Luis:</strong> <code>git checkout ft_two</code> — Return to the feature branch</li>
+          <li><strong>GIT - Luis:</strong> <code>git rebase main ft_two</code> — Reapply ft_two commits on top of the updated main</li>
+          <li><strong>GIT - Luis:</strong> <code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> — Resolve each merge conflict and continue the rebase process</li>
+          <li><strong>GIT - Luis:</strong> <code>git push origin ft_two</code> — Push the rebased feature branch to the remote repository</li>
+          <li><strong>GITHUB - Luis:</strong> He creates a new PR with <em>base: main</em>, <em>compare: ft_two</em> and specifies title and description</li>
+          <li><strong>GITHUB - Luis:</strong> The reviewer reviews his PR changes and approves them</li>
+          <li><strong>GITHUB - Luis:</strong> He has integrated the changes of <code>ft_two</code> into <code>main</code> correctly</li>
+        </ol>
+      </section>
+    </article>
 
-    <details open>
-      <summary>Task 2: Parallel Feature Branch Integration & Revisions (Luis & Ana)</summary>
-      <h2>Luis: Merge <code>ft_two</code> into <code>main</code>, with PR feedback</h2>
-      <ul>
-        <li><em>Create commits #2 and #5 in feature branch ft_two</em></li>
-        <li><code>git checkout main</code> <em>Switch to main to fetch updates</em></li>
-        <li><code>git pull origin main</code> <em>Get the latest main branch changes</em></li>
-        <li><code>git checkout ft_two</code> <em>Return to ft_two branch for rebasing</em></li>
-        <li><code>git rebase main ft_two</code> <em>Rebase ft_two onto main</em></li>
-        <li><code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> <em>Resolve each conflict as prompted</em></li>
-        <li><code>git push origin ft_two</code> <em>Update remote ft_two with rebased changes</em></li>
-        <li><em>Create pull request: base=main, compare=ft_two</em></li>
-        <li><em>Reviewer reviews PR and requests changes</em></li>
-        <li><em>Perform commit #7 to resolve review issues</em></li>
-        <li><code>git push origin ft_two</code> <em>Update PR with fixes</em></li>
-        <li><em>Reviewer approves the updated PR</em></li>
-        <li><em>ft_two successfully merged into main via PR</em></li>
-      </ul>
+    <hr>
 
-      <h2>Ana: Merge <code>ft_one</code> into <code>main</code>, with PR feedback</h2>
-      <ul>
-        <li><em>Create commits #1 and #4 in feature branch ft_one</em></li>
-        <li><code>git checkout main</code> <em>Switch to main to fetch updates</em></li>
-        <li><code>git pull origin main</code> <em>Get the latest main branch changes</em></li>
-        <li><code>git checkout ft_one</code> <em>Return to ft_one branch</em></li>
-        <li><code>git rebase main ft_one</code> <em>Rebase ft_one onto main</em></li>
-        <li><code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> <em>Resolve each conflict as prompted</em></li>
-        <li><code>git push origin ft_one</code> <em>Update remote ft_one with rebased changes</em></li>
-        <li><em>Create pull request: base=main, compare=ft_one</em></li>
-        <li><em>Reviewer reviews PR and requests changes</em></li>
-        <li><em>Perform commit #8 to resolve review issues</em></li>
-        <li><code>git push origin ft_one</code> <em>Update PR with fixes</em></li>
-        <li><em>Reviewer approves the updated PR</em></li>
-        <li><em>ft_one successfully merged into main via PR</em></li>
-      </ul>
-    </details>
+    <article>
+      <h2>Exercise 2: Parallel PR Integration with Review Iteration</h2>
+      <p>This exercise shows a scenario where both developers work simultaneously on different features. Luis integrates first after feedback, and Ana follows with her own review cycle.</p>
+
+      <section>
+        <h3>Luis's Workflow (ft_two branch)</h3>
+        <ol>
+          <li><strong>GIT - Luis:</strong> Did commits #2 and #5 in branch <code>ft_two</code></li>
+          <li><strong>GIT - Luis:</strong> <code>git checkout main</code> — Switch to the main branch</li>
+          <li><strong>GIT - Luis:</strong> <code>git pull origin main</code> — Fetch and merge the latest changes from remote main</li>
+          <li><strong>GIT - Luis:</strong> <code>git checkout ft_two</code> — Return to the feature branch</li>
+          <li><strong>GIT - Luis:</strong> <code>git rebase main ft_two</code> — Reapply ft_two commits on top of the updated main</li>
+          <li><strong>GIT - Luis:</strong> <code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> — Resolve each merge conflict and continue the rebase process</li>
+          <li><strong>GIT - Luis:</strong> <code>git push origin ft_two</code> — Push the rebased feature branch to the remote repository</li>
+          <li><strong>GITHUB - Luis:</strong> He creates a new PR with <em>base: main</em>, <em>compare: ft_two</em> and specifies title and description</li>
+          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews his PR changes and finds some issue with it</li>
+          <li><strong>GIT - Luis:</strong> He does commit #7 to fix this issue</li>
+          <li><strong>GIT - Luis:</strong> <code>git push origin ft_two</code> — Push the fix to update the PR automatically</li>
+          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews the updated PR and approves it</li>
+          <li><strong>GITHUB - Luis:</strong> He has integrated the changes of <code>ft_two</code> into <code>main</code> correctly</li>
+        </ol>
+      </section>
+
+      <section>
+        <h3>Ana's Workflow (ft_one branch)</h3>
+        <ol>
+          <li><strong>GIT - Ana:</strong> Did commits #1 and #4 in branch <code>ft_one</code></li>
+          <li><strong>GIT - Ana:</strong> <code>git checkout main</code> — Switch to the main branch</li>
+          <li><strong>GIT - Ana:</strong> <code>git pull origin main</code> — Fetch and merge the latest changes from remote main (including Luis's merged changes)</li>
+          <li><strong>GIT - Ana:</strong> <code>git checkout ft_one</code> — Return to the feature branch</li>
+          <li><strong>GIT - Ana:</strong> <code>git rebase main ft_one</code> — Reapply ft_one commits on top of the updated main</li>
+          <li><strong>GIT - Ana:</strong> <code>git add &lt;conflict_file&gt;</code> &amp; <code>git rebase --continue</code> — Resolve each merge conflict and continue the rebase process</li>
+          <li><strong>GIT - Ana:</strong> <code>git push origin ft_one</code> — Push the rebased feature branch to the remote repository</li>
+          <li><strong>GITHUB - Ana:</strong> She creates a new PR with <em>base: main</em>, <em>compare: ft_one</em> and specifies title and description</li>
+          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews her PR changes and finds some issue with it</li>
+          <li><strong>GIT - Ana:</strong> She does commit #8 to fix this issue</li>
+          <li><strong>GIT - Ana:</strong> <code>git push origin ft_one</code> — Push the fix to update the PR automatically</li>
+          <li><strong>GITHUB - Reviewer:</strong> The reviewer reviews the updated PR and approves it</li>
+          <li><strong>GITHUB - Ana:</strong> She has integrated the changes of <code>ft_one</code> into <code>main</code> correctly</li>
+        </ol>
+      </section>
+    </article>
   </main>
+
+  <footer>
+    <p>Git Pull Request Methodology Exercises — Best Practices for Feature Branch Integration</p>
+  </footer>
 </body>
 </html>

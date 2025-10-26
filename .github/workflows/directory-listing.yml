@@ -5,6 +5,11 @@ on:
     branches: [ "master" ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   generate-index:
     runs-on: ubuntu-latest

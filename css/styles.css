@@ -1,12 +1,23 @@
-/* ===========================
-   Academic HTML Document Stylesheet
-   PDF-Ready | Version 1.1
-   =========================== */
+/* ===================================
+   Academic Paper CSS for HTML5
+   A comprehensive stylesheet for all HTML5 elements
+   =================================== */
 
-/* ===========================
-   1. CSS Reset & Base Styles
-   =========================== */
+/* Root Variables */
+:root {
+  --font-serif: 'Georgia', 'Times New Roman', 'Palatino Linotype', serif;
+  --font-sans: 'Helvetica Neue', 'Arial', 'Calibri', sans-serif;
+  --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
+  --color-text: #000000;
+  --color-secondary: #333333;
+  --color-border: #cccccc;
+  --color-bg: #ffffff;
+  --color-code-bg: #f5f5f5;
+  --line-height: 1.6;
+  --max-width: 8.5in;
+}
 
+/* Base Reset & Document Setup */
 * {
   margin: 0;
   padding: 0;
@@ -14,297 +25,223 @@
 }
 
 html {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 12pt;
+  line-height: var(--line-height);
 }
 
 body {
-  font-family: "Georgia", "Times New Roman", serif;
-  color: #2c2c2c;
-  background-color: #ffffff;
-  max-width: 210mm;
-  margin: 0 auto;
-  padding: 20mm;
+  font-family: var(--font-serif);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  max-width: var(--max-width);
+  margin: 1in auto;
+  padding: 0 1in;
+  text-align: justify;
+  hyphens: auto;
 }
 
-/* ===========================
-   2. HTML5 Semantic Elements
-   =========================== */
-
+/* Main Structural Elements */
 header {
+  text-align: center;
   margin-bottom: 2em;
   padding-bottom: 1em;
-  border-bottom: 2px solid #333333;
+  border-bottom: 1px solid var(--color-border);
 }
 
 nav {
-  margin-bottom: 1.5em;
-  padding: 0.75em 0;
+  margin: 1.5em 0;
+  padding: 0.75em;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
 }
 
 nav ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
-nav li {
-  display: inline-block;
-  margin-right: 1.5em;
+nav ul li {
+  display: inline;
+  margin: 0 0.5em;
 }
 
 nav a {
-  font-weight: 600;
-  color: #1a5490;
-  border-bottom: none;
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
 
 main {
-  margin-bottom: 2em;
+  margin: 2em 0;
 }
 
 article {
-  margin-bottom: 2em;
-  padding-bottom: 1.5em;
-  border-bottom: 1px solid #e0e0e0;
-  page-break-inside: avoid;
-}
-
-article:last-child {
-  border-bottom: none;
+  margin-bottom: 3em;
 }
 
 section {
-  margin-bottom: 1.5em;
+  margin: 2em 0;
 }
 
 aside {
   margin: 1.5em 0;
   padding: 1em;
-  background-color: #f9f9f9;
-  border-left: 4px solid #1a5490;
+  border-left: 3px solid var(--color-border);
+  background-color: var(--color-code-bg);
   font-size: 0.95em;
-  page-break-inside: avoid;
-}
-
-aside p:last-child {
-  margin-bottom: 0;
 }
 
 footer {
-  margin-top: 2em;
+  margin-top: 3em;
   padding-top: 1em;
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid var(--color-border);
   font-size: 0.9em;
-  color: #666666;
   text-align: center;
 }
 
-/* ===========================
-   3. Typography - Headings
-   =========================== */
-
+/* Typography - Headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Arial", "Helvetica", sans-serif;
-  color: #1a1a1a;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.3;
   margin-top: 1.5em;
   margin-bottom: 0.75em;
-  font-weight: 600;
-  line-height: 1.3;
   page-break-after: avoid;
 }
 
 h1 {
-  font-size: 2.25rem;
-  border-bottom: 2px solid #333333;
-  padding-bottom: 0.3em;
+  font-size: 1.8em;
+  text-align: center;
   margin-top: 0;
+  margin-bottom: 1em;
 }
 
 h2 {
-  font-size: 1.75rem;
-  border-bottom: 1px solid #666666;
-  padding-bottom: 0.25em;
+  font-size: 1.4em;
+  margin-top: 2em;
 }
 
 h3 {
-  font-size: 1.4rem;
+  font-size: 1.2em;
 }
 
 h4 {
-  font-size: 1.2rem;
+  font-size: 1.1em;
 }
 
-h5 {
-  font-size: 1.1rem;
-}
-
-h6 {
-  font-size: 1rem;
+h5, h6 {
+  font-size: 1em;
   font-style: italic;
 }
 
-/* ===========================
-   4. Paragraphs & Text Elements
-   =========================== */
-
+/* Paragraphs & Text */
 p {
   margin-bottom: 1em;
-  text-align: justify;
-  orphans: 3;
-  widows: 3;
+  orphans: 2;
+  widows: 2;
 }
 
-strong, b {
-  font-weight: bold;
-  color: #1a1a1a;
-}
-
-em, i {
-  font-style: italic;
-}
-
-u {
+/* Links */
+a {
+  color: var(--color-text);
   text-decoration: underline;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Text-level Semantics */
+strong, b {
+  font-weight: 700;
+}
+
+em, i, cite, dfn {
+  font-style: italic;
 }
 
 mark {
-  background-color: #ffffcc;
-  padding: 0.1em 0.2em;
+  background-color: #ffff99;
+  padding: 0 0.2em;
 }
 
 small {
-  font-size: 0.875rem;
+  font-size: 0.85em;
 }
 
-sub {
-  font-size: 0.75rem;
-  vertical-align: sub;
+sub, sup {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
 }
 
 sup {
-  font-size: 0.75rem;
-  vertical-align: super;
+  top: -0.5em;
 }
 
-del, s {
-  text-decoration: line-through;
-  color: #666666;
-}
-
-ins {
-  text-decoration: underline;
-  color: #1a5490;
+sub {
+  bottom: -0.25em;
 }
 
 abbr[title] {
-  border-bottom: 1px dotted #666666;
+  border-bottom: 1px dotted var(--color-border);
   cursor: help;
   text-decoration: none;
 }
 
-/* ===========================
-   5. Links
-   =========================== */
-
-a {
-  color: #1a5490;
-  text-decoration: none;
-  border-bottom: 1px solid #ccdae8;
-  transition: color 0.2s ease, border-color 0.2s ease;
+code, kbd, samp, var {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: var(--color-code-bg);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
 }
 
-a:hover {
-  color: #0d3a6f;
-  border-bottom-color: #1a5490;
+kbd {
+  border: 1px solid var(--color-border);
+  padding: 0.1em 0.4em;
 }
 
-a:visited {
-  color: #5c3d99;
+/* Preformatted Text & Code Blocks */
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  line-height: 1.4;
+  background-color: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  padding: 1em;
+  margin: 1.5em 0;
+  overflow-x: auto;
+  page-break-inside: avoid;
 }
 
-/* ===========================
-   6. Lists
-   =========================== */
-
-ul, ol {
-  margin-bottom: 1em;
-  margin-left: 2em;
-  padding-left: 0;
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
 }
 
-ul {
-  list-style-type: disc;
-}
-
-ul ul {
-  list-style-type: circle;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-ul ul ul {
-  list-style-type: square;
-}
-
-ol {
-  list-style-type: decimal;
-}
-
-ol ol {
-  list-style-type: lower-alpha;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-ol ol ol {
-  list-style-type: lower-roman;
-}
-
-li {
-  margin-bottom: 0.4em;
-}
-
-dl {
-  margin-bottom: 1em;
-}
-
-dt {
-  font-weight: bold;
-  margin-top: 0.75em;
-  color: #1a1a1a;
-}
-
-dd {
-  margin-left: 2em;
-  margin-bottom: 0.5em;
-}
-
-/* ===========================
-   7. Blockquotes & Citations
-   =========================== */
-
+/* Quotes */
 blockquote {
   margin: 1.5em 2em;
-  padding: 0.75em 1.5em;
-  border-left: 4px solid #cccccc;
-  background-color: #f9f9f9;
+  padding-left: 1.5em;
+  border-left: 4px solid var(--color-border);
   font-style: italic;
-  color: #4a4a4a;
-  page-break-inside: avoid;
+  color: var(--color-secondary);
 }
 
 blockquote p:last-child {
   margin-bottom: 0;
 }
 
-cite {
-  font-style: italic;
-  color: #666666;
-}
-
 q {
-  quotes: """ """ "'" "'";
+  font-style: italic;
 }
 
 q::before {
@@ -315,181 +252,95 @@ q::after {
   content: close-quote;
 }
 
-/* ===========================
-   8. Code & Preformatted Text
-   =========================== */
-
-code, kbd, samp, var {
-  font-family: "Courier New", "Consolas", monospace;
-  font-size: 0.9em;
-  background-color: #f4f4f4;
-  padding: 0.15em 0.4em;
-  border-radius: 3px;
-  color: #d14;
+/* Lists */
+ul, ol {
+  margin: 1em 0;
+  padding-left: 2.5em;
 }
 
-pre {
-  font-family: "Courier New", "Consolas", monospace;
-  font-size: 0.875rem;
-  background-color: #f6f6f6;
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  padding: 1em;
-  margin-bottom: 1em;
-  overflow-x: auto;
-  line-height: 1.4;
-  page-break-inside: avoid;
+ul {
+  list-style-type: disc;
 }
 
-pre code {
-  background-color: transparent;
-  padding: 0;
-  border-radius: 0;
-  color: inherit;
+ol {
+  list-style-type: decimal;
 }
 
-/* ===========================
-   9. Tables
-   =========================== */
+li {
+  margin-bottom: 0.5em;
+}
 
+ul ul, ol ul {
+  list-style-type: circle;
+}
+
+ul ul ul, ol ul ul {
+  list-style-type: square;
+}
+
+ol ol, ul ol {
+  list-style-type: lower-alpha;
+}
+
+ol ol ol, ul ol ol {
+  list-style-type: lower-roman;
+}
+
+dl {
+  margin: 1em 0;
+}
+
+dt {
+  font-weight: 700;
+  margin-top: 0.5em;
+}
+
+dd {
+  margin-left: 2em;
+  margin-bottom: 0.5em;
+}
+
+/* Tables */
 table {
-  width: 100%;
   border-collapse: collapse;
-  margin-bottom: 1.5em;
+  width: 100%;
+  margin: 1.5em 0;
   page-break-inside: avoid;
 }
 
 caption {
-  caption-side: top;
-  font-weight: bold;
-  font-size: 1.1em;
+  font-weight: 700;
+  text-align: center;
   margin-bottom: 0.5em;
-  text-align: left;
-  color: #1a1a1a;
+  padding: 0.5em 0;
 }
 
 thead {
-  background-color: #f0f0f0;
-  border-bottom: 2px solid #333333;
+  border-bottom: 2px solid var(--color-text);
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--color-border);
+}
+
+th, td {
+  padding: 0.5em 0.75em;
+  text-align: left;
+  vertical-align: top;
 }
 
 th {
-  font-weight: bold;
-  text-align: left;
-  padding: 0.75em;
-  color: #1a1a1a;
-  border-bottom: 1px solid #999999;
-}
-
-td {
-  padding: 0.75em;
-  border-bottom: 1px solid #dddddd;
-}
-
-tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tbody tr:hover {
-  background-color: #f0f0f0;
+  font-weight: 700;
+  font-family: var(--font-sans);
 }
 
 tfoot {
-  font-weight: bold;
-  border-top: 2px solid #333333;
-  background-color: #f0f0f0;
+  border-top: 2px solid var(--color-text);
+  font-size: 0.9em;
+  font-style: italic;
 }
 
-/* ===========================
-   10. Forms & Input Elements
-   =========================== */
-
-form {
-  margin-bottom: 1.5em;
-}
-
-fieldset {
-  border: 1px solid #cccccc;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-radius: 4px;
-}
-
-legend {
-  font-weight: bold;
-  padding: 0 0.5em;
-  color: #1a1a1a;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5em;
-  font-weight: 600;
-  color: #2c2c2c;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="tel"],
-input[type="url"],
-input[type="search"],
-input[type="date"],
-input[type="time"],
-textarea,
-select {
-  width: 100%;
-  padding: 0.5em;
-  border: 1px solid #cccccc;
-  border-radius: 3px;
-  font-family: inherit;
-  font-size: 1rem;
-  margin-bottom: 1em;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-  margin-right: 0.5em;
-}
-
-button,
-input[type="submit"],
-input[type="button"],
-input[type="reset"] {
-  padding: 0.6em 1.2em;
-  background-color: #1a5490;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-button:hover,
-input[type="submit"]:hover,
-input[type="button"]:hover {
-  background-color: #0d3a6f;
-}
-
-/* ===========================
-   11. Images & Media
-   =========================== */
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1em auto;
-  page-break-inside: avoid;
-}
-
+/* Figures & Images */
 figure {
   margin: 1.5em 0;
   text-align: center;
@@ -499,127 +350,174 @@ figure {
 figcaption {
   font-size: 0.9em;
   font-style: italic;
-  color: #666666;
   margin-top: 0.5em;
-}
-
-/* ===========================
-   12. Horizontal Rules
-   =========================== */
-
-hr {
-  border: none;
-  border-top: 1px solid #cccccc;
-  margin: 2em 0;
-  page-break-after: avoid;
-}
-
-/* ===========================
-   13. Details & Summary
-   =========================== */
-
-details {
-  margin-bottom: 1em;
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  padding: 0.75em;
-}
-
-summary {
-  font-weight: bold;
-  cursor: pointer;
-  color: #1a5490;
-  user-select: none;
-}
-
-summary:hover {
-  color: #0d3a6f;
-}
-
-details[open] summary {
-  margin-bottom: 0.75em;
-}
-
-/* ===========================
-   14. Additional Elements
-   =========================== */
-
-address {
-  font-style: italic;
-  margin-bottom: 1em;
-  line-height: 1.6;
-}
-
-time {
-  font-variant: small-caps;
-}
-
-dfn {
-  font-style: italic;
-  font-weight: bold;
-}
-
-/* ===========================
-   15. Print & PDF Styles
-   =========================== */
-
-@media print {
-  body {
-    margin: 0;
-    padding: 15mm;
-    font-size: 12pt;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    page-break-after: avoid;
-  }
-
-  p, blockquote, pre, table, figure {
-    page-break-inside: avoid;
-  }
-
-  a {
-    color: #000000;
-    text-decoration: underline;
-    border-bottom: none;
-  }
-
-  a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: 0.8em;
-    color: #666666;
-  }
-
-  thead {
-    display: table-header-group;
-  }
-
-  tr, img {
-    page-break-inside: avoid;
-  }
-
-  @page {
-    margin: 20mm;
-    size: A4;
-  }
-}
-
-/* ===========================
-   16. Utility Classes
-   =========================== */
-
-.text-center {
   text-align: center;
 }
 
-.text-right {
-  text-align: right;
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-.text-left {
-  text-align: left;
+/* Media Elements */
+audio, video {
+  max-width: 100%;
+  display: block;
+  margin: 1.5em auto;
 }
 
-.no-break {
-  page-break-inside: avoid;
+/* Horizontal Rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2em 0;
+}
+
+/* Details & Summary */
+details {
+  margin: 1em 0;
+  padding: 0.5em;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+summary {
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.5em;
+  margin: -0.5em;
+  background-color: var(--color-code-bg);
+}
+
+summary:hover {
+  background-color: #e8e8e8;
+}
+
+details[open] summary {
+  margin-bottom: 0.5em;
+}
+
+/* Forms */
+fieldset {
+  border: 1px solid var(--color-border);
+  padding: 1em;
+  margin: 1em 0;
+}
+
+legend {
+  font-weight: 700;
+  padding: 0 0.5em;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25em;
+  font-weight: 500;
+}
+
+input, textarea, select, button {
+  font-family: inherit;
+  font-size: 1em;
+  line-height: 1.4;
+  padding: 0.4em;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+input[type="search"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 1em;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button, input[type="submit"], input[type="button"] {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  border: none;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+  background-color: var(--color-secondary);
+}
+
+/* Address */
+address {
+  font-style: italic;
+  margin: 1em 0;
+}
+
+/* Time */
+time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Progress & Meter */
+progress, meter {
+  width: 100%;
+  max-width: 300px;
+  height: 1.5em;
+}
+
+/* Dialog */
+dialog {
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  padding: 1em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Print Styles */
+@media print {
+  body {
+    margin: 0;
+    padding: 0.5in;
+    font-size: 11pt;
+  }
+  
+  header, footer {
+    page-break-after: avoid;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  
+  figure, table, pre {
+    page-break-inside: avoid;
+  }
+  
+  a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+}
+
+/* Screen Enhancements (Optional) */
+@media screen {
+  body {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
 }

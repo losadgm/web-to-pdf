@@ -1,5 +1,5 @@
 /* ============================================
-   Academic Paper CSS for HTML5 Elements
+   Academic Paper CSS for HTML5 Elements (WIDER VERSION)
    Suitable for PDF conversion and print media
    ============================================ */
 
@@ -27,9 +27,9 @@ body {
   font-family: var(--font-serif);
   color: var(--text-color);
   background-color: var(--bg-color);
-  max-width: 8.5in;
+  max-width: 90ch; /* Wider: ~90 characters per line for better screen usage */
   margin: 0 auto;
-  padding: 1in;
+  padding: 1.5in 1in;
   text-align: justify;
   hyphens: auto;
 }
@@ -392,6 +392,28 @@ output {
 /* Interactive Elements */
 summary::-webkit-details-marker {
   display: none;
+}
+
+/* Responsive adjustments for different screen sizes */
+@media screen and (max-width: 1400px) {
+  body {
+    max-width: 85ch;
+    padding: 1in 0.75in;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  body {
+    max-width: 75ch;
+    padding: 0.75in 0.5in;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    max-width: 100%;
+    padding: 0.5in;
+  }
 }
 
 /* Print Media Styles for PDF Conversion */

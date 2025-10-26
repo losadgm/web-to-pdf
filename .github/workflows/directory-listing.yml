@@ -3,42 +3,27 @@ name: Generate Directory Listing
 on:
   push:
     branches: [ "master" ]
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+  workflow_dispatch:
 
 jobs:
-  generate-and-deploy:
+  generate-index:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Generate directory listings
-        uses: gacts/directory-listing@v1
+      - uses: gacts/directory-listing@v1
         with:
           target: .
-          # Optional: Uncomment and modify as needed
+          # target: .
           # ignore: |
           #   build/**
           #   **/index.html
-          #   node_modules/**
-          # show-hidden: false
+          #   node_modules/**,**/*.log
+          # show-hidden: true
           # overwrite: true
-      
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          path: '.'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
       
       - name: Deploy to GitHub Pages
         id: deployment

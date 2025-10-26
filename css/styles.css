@@ -1,6 +1,6 @@
 /* ============================================
    Modern Academic-Style CSS for HTML5 Elements
-   Friendly design with color accents
+   Friendly design with color accents - FIXED FOR PDF
    ============================================ */
 
 /* Base Document Styles */
@@ -592,8 +592,8 @@ summary::-webkit-details-marker {
 /* Print Media Styles for PDF Conversion */
 @media print {
   @page {
-    size: letter;
-    margin: 1in;
+    size: A4;
+    margin: 2cm;
   }
   
   :root {
@@ -607,6 +607,29 @@ summary::-webkit-details-marker {
     max-width: none;
     padding: 0;
     margin: 0;
+    font-size: 10pt;
+  }
+  
+  /* Critical fix for pre blocks in PDF */
+  pre {
+    font-size: 7pt !important;
+    line-height: 1.3 !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: break-all;
+    max-width: 100%;
+    overflow: visible !important;
+    border-radius: 4px;
+    padding: 0.8em !important;
+    margin: 1em 0 !important;
+    page-break-inside: avoid;
+  }
+  
+  pre code {
+    font-size: inherit !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
   }
   
   a {
@@ -626,10 +649,12 @@ summary::-webkit-details-marker {
   
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
+    break-after: avoid;
   }
   
-  p, blockquote, pre, figure, table {
+  p, blockquote, figure, table {
     page-break-inside: avoid;
+    break-inside: avoid;
   }
   
   thead {
@@ -638,6 +663,7 @@ summary::-webkit-details-marker {
   
   tr, img {
     page-break-inside: avoid;
+    break-inside: avoid;
   }
   
   nav, video, audio, iframe, embed, object {
@@ -650,6 +676,11 @@ summary::-webkit-details-marker {
   
   table {
     box-shadow: none;
+  }
+  
+  /* Ensure better page breaks */
+  article, section {
+    page-break-after: auto;
   }
 }
 

@@ -3,22 +3,37 @@ name: Generate Directory Listings
 on:
   push:
     branches: [ "master" ]
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    
+    # THIS IS THE REQUIRED ENVIRONMENT SETTING
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
       
       - name: Generate Directory Listings
         uses: jayanta525/github-pages-directory-listing@v4.0.0
         with:
           FOLDER: .
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -26,4 +41,5 @@ jobs:
           path: '.'
       
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4

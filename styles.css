@@ -1,0 +1,625 @@
+/* ===========================
+   Academic HTML Document Stylesheet
+   PDF-Ready | Version 1.1
+   =========================== */
+
+/* ===========================
+   1. CSS Reset & Base Styles
+   =========================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #2c2c2c;
+  background-color: #ffffff;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 20mm;
+}
+
+/* ===========================
+   2. HTML5 Semantic Elements
+   =========================== */
+
+header {
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 2px solid #333333;
+}
+
+nav {
+  margin-bottom: 1.5em;
+  padding: 0.75em 0;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+
+nav a {
+  font-weight: 600;
+  color: #1a5490;
+  border-bottom: none;
+}
+
+main {
+  margin-bottom: 2em;
+}
+
+article {
+  margin-bottom: 2em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid #e0e0e0;
+  page-break-inside: avoid;
+}
+
+article:last-child {
+  border-bottom: none;
+}
+
+section {
+  margin-bottom: 1.5em;
+}
+
+aside {
+  margin: 1.5em 0;
+  padding: 1em;
+  background-color: #f9f9f9;
+  border-left: 4px solid #1a5490;
+  font-size: 0.95em;
+  page-break-inside: avoid;
+}
+
+aside p:last-child {
+  margin-bottom: 0;
+}
+
+footer {
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid #cccccc;
+  font-size: 0.9em;
+  color: #666666;
+  text-align: center;
+}
+
+/* ===========================
+   3. Typography - Headings
+   =========================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Arial", "Helvetica", sans-serif;
+  color: #1a1a1a;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  font-weight: 600;
+  line-height: 1.3;
+  page-break-after: avoid;
+}
+
+h1 {
+  font-size: 2.25rem;
+  border-bottom: 2px solid #333333;
+  padding-bottom: 0.3em;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.75rem;
+  border-bottom: 1px solid #666666;
+  padding-bottom: 0.25em;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* ===========================
+   4. Paragraphs & Text Elements
+   =========================== */
+
+p {
+  margin-bottom: 1em;
+  text-align: justify;
+  orphans: 3;
+  widows: 3;
+}
+
+strong, b {
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+em, i {
+  font-style: italic;
+}
+
+u {
+  text-decoration: underline;
+}
+
+mark {
+  background-color: #ffffcc;
+  padding: 0.1em 0.2em;
+}
+
+small {
+  font-size: 0.875rem;
+}
+
+sub {
+  font-size: 0.75rem;
+  vertical-align: sub;
+}
+
+sup {
+  font-size: 0.75rem;
+  vertical-align: super;
+}
+
+del, s {
+  text-decoration: line-through;
+  color: #666666;
+}
+
+ins {
+  text-decoration: underline;
+  color: #1a5490;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted #666666;
+  cursor: help;
+  text-decoration: none;
+}
+
+/* ===========================
+   5. Links
+   =========================== */
+
+a {
+  color: #1a5490;
+  text-decoration: none;
+  border-bottom: 1px solid #ccdae8;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+a:hover {
+  color: #0d3a6f;
+  border-bottom-color: #1a5490;
+}
+
+a:visited {
+  color: #5c3d99;
+}
+
+/* ===========================
+   6. Lists
+   =========================== */
+
+ul, ol {
+  margin-bottom: 1em;
+  margin-left: 2em;
+  padding-left: 0;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ul ul {
+  list-style-type: circle;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul ul ul {
+  list-style-type: square;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ol ol ol {
+  list-style-type: lower-roman;
+}
+
+li {
+  margin-bottom: 0.4em;
+}
+
+dl {
+  margin-bottom: 1em;
+}
+
+dt {
+  font-weight: bold;
+  margin-top: 0.75em;
+  color: #1a1a1a;
+}
+
+dd {
+  margin-left: 2em;
+  margin-bottom: 0.5em;
+}
+
+/* ===========================
+   7. Blockquotes & Citations
+   =========================== */
+
+blockquote {
+  margin: 1.5em 2em;
+  padding: 0.75em 1.5em;
+  border-left: 4px solid #cccccc;
+  background-color: #f9f9f9;
+  font-style: italic;
+  color: #4a4a4a;
+  page-break-inside: avoid;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+cite {
+  font-style: italic;
+  color: #666666;
+}
+
+q {
+  quotes: """ """ "'" "'";
+}
+
+q::before {
+  content: open-quote;
+}
+
+q::after {
+  content: close-quote;
+}
+
+/* ===========================
+   8. Code & Preformatted Text
+   =========================== */
+
+code, kbd, samp, var {
+  font-family: "Courier New", "Consolas", monospace;
+  font-size: 0.9em;
+  background-color: #f4f4f4;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  color: #d14;
+}
+
+pre {
+  font-family: "Courier New", "Consolas", monospace;
+  font-size: 0.875rem;
+  background-color: #f6f6f6;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 1em;
+  margin-bottom: 1em;
+  overflow-x: auto;
+  line-height: 1.4;
+  page-break-inside: avoid;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+}
+
+/* ===========================
+   9. Tables
+   =========================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5em;
+  page-break-inside: avoid;
+}
+
+caption {
+  caption-side: top;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+  text-align: left;
+  color: #1a1a1a;
+}
+
+thead {
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #333333;
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+  padding: 0.75em;
+  color: #1a1a1a;
+  border-bottom: 1px solid #999999;
+}
+
+td {
+  padding: 0.75em;
+  border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+tfoot {
+  font-weight: bold;
+  border-top: 2px solid #333333;
+  background-color: #f0f0f0;
+}
+
+/* ===========================
+   10. Forms & Input Elements
+   =========================== */
+
+form {
+  margin-bottom: 1.5em;
+}
+
+fieldset {
+  border: 1px solid #cccccc;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 4px;
+}
+
+legend {
+  font-weight: bold;
+  padding: 0 0.5em;
+  color: #1a1a1a;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 1rem;
+  margin-bottom: 1em;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 0.5em;
+}
+
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"] {
+  padding: 0.6em 1.2em;
+  background-color: #1a5490;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background-color: #0d3a6f;
+}
+
+/* ===========================
+   11. Images & Media
+   =========================== */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1em auto;
+  page-break-inside: avoid;
+}
+
+figure {
+  margin: 1.5em 0;
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+figcaption {
+  font-size: 0.9em;
+  font-style: italic;
+  color: #666666;
+  margin-top: 0.5em;
+}
+
+/* ===========================
+   12. Horizontal Rules
+   =========================== */
+
+hr {
+  border: none;
+  border-top: 1px solid #cccccc;
+  margin: 2em 0;
+  page-break-after: avoid;
+}
+
+/* ===========================
+   13. Details & Summary
+   =========================== */
+
+details {
+  margin-bottom: 1em;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 0.75em;
+}
+
+summary {
+  font-weight: bold;
+  cursor: pointer;
+  color: #1a5490;
+  user-select: none;
+}
+
+summary:hover {
+  color: #0d3a6f;
+}
+
+details[open] summary {
+  margin-bottom: 0.75em;
+}
+
+/* ===========================
+   14. Additional Elements
+   =========================== */
+
+address {
+  font-style: italic;
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
+
+time {
+  font-variant: small-caps;
+}
+
+dfn {
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* ===========================
+   15. Print & PDF Styles
+   =========================== */
+
+@media print {
+  body {
+    margin: 0;
+    padding: 15mm;
+    font-size: 12pt;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  p, blockquote, pre, table, figure {
+    page-break-inside: avoid;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: underline;
+    border-bottom: none;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666666;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr, img {
+    page-break-inside: avoid;
+  }
+
+  @page {
+    margin: 20mm;
+    size: A4;
+  }
+}
+
+/* ===========================
+   16. Utility Classes
+   =========================== */
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.no-break {
+  page-break-inside: avoid;
+}

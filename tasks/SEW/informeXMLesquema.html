@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambios en circuito.xsd</title>
+</head>
+<body>
+    <header>
+        <h1>Registro de cambios: circuito.xsd</h1>
+    </header>
+    
+    <main>
+        <article>
+            <h2>Configuración de namespace y codificación</h2>
+            <time datetime="2025-10-23">23 de octubre de 2025</time>
+            <ul>
+                <li>Se añadió el atributo <code>xmlns="http://www.uniovi.es"</code> al elemento <code>xs:schema</code></li>
+                <li>Se añadió el atributo <code>targetNamespace="http://www.uniovi.es"</code> para referenciar al namespace del documento que se validará con este XML Schema</li>
+                <li>Se modificó el atributo de codificación de <code>encoding="windows-1252"</code> a <code>encoding="utf-8"</code> en la instrucción de procesamiento XML</li>
+            </ul>
+        </article>
+
+        <article>
+            <h2>Cambio de tipos de elementos</h2>
+            <time datetime="2025-10-24">24 de octubre de 2025</time>
+            <ul>
+                <li>El elemento <code>largo</code> ahora es de tipo <code>xs:decimal</code></li>
+                <li>El elemento <code>ancho</code> ahora es de tipo <code>xs:decimal</code></li>
+                <li>Las coordenadas <code>latitud</code> y <code>longitud</code> ahora son de tipo <code>geoCoordenada</code></li>
+                <li>El elemento <code>altitud</code> ahora es de tipo <code>xs:decimal</code></li>
+                <li>El elemento <code>sector</code> ahora es de tipo <code>xs:integer</code></li>
+            </ul>
+        </article>
+
+        <article>
+            <h2>Actualización de atributos</h2>
+            <time datetime="2025-10-24">24 de octubre de 2025</time>
+            <ul>
+                <li>El atributo <code>fecha</code> del elemento <code>carrera</code> ahora es de tipo <code>xs:date</code></li>
+                <li>El atributo <code>horaInicio</code> del elemento <code>carrera</code> ahora es de tipo <code>xs:time</code></li>
+                <li>El atributo <code>numeroVueltas</code> del elemento <code>carrera</code> ahora es de tipo <code>xs:decimal</code></li>
+                <li>El atributo <code>tiempoEmpleado</code> del elemento <code>vencedor</code> ahora es de tipo <code>xs:duration</code></li>
+                <li>El atributo <code>principal</code> del elemento <code>patrocinador</code> ahora es de tipo <code>xs:boolean</code> y su valor por defecto es <code>false</code></li>
+            </ul>
+        </article>
+
+        <article>
+            <h2>Modificación de ocurrencias</h2>
+            <time datetime="2025-10-24">24 de octubre de 2025</time>
+            <ul>
+                <li>El atributo <code>maxOccurs</code> del elemento <code>fotografías</code> para la secuencia de <code>fotografía</code> se ha establecido en <code>5</code></li>
+                <li>El atributo <code>maxOccurs</code> del elemento <code>videos</code> para la secuencia de <code>video</code> se ha establecido en <code>3</code></li>
+                <li>El atributo <code>minOccurs</code> del elemento <code>referencias</code> para la secuencia de <code>referencia</code> se ha establecido en <code>3</code></li>
+            </ul>
+        </article>
+    </main>
+</body>
+</html>

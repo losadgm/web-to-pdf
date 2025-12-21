@@ -28,7 +28,7 @@
             <h2>1. Introducción</h2>
             <p>Este informe documenta el despliegue completo del proyecto MotoGP-Desktop en una instancia Ubuntu Linux de Azure, incluyendo instalación de Apache, PHP 8.1+ y MySQL 8.0+ con verificación de funcionalidad dinámica.</p>
             <figure>
-                <img src="Captura1.png" alt="Overview de la máquina virtual MotoGP-VM en Azure Portal mostrando IP pública 172.211.72.245 y estado Running">
+                <img src="captura1.png" alt="Overview de la máquina virtual MotoGP-VM en Azure Portal mostrando IP pública 172.211.72.245 y estado Running">
                 <figcaption>Figura 1: Máquina virtual MotoGP-VM creada exitosamente (IP: 172.211.72.245)</figcaption>
             </figure>
         </section>
@@ -49,7 +49,7 @@ scp -r ./MotoGP-Desktop/* azureuser@172.211.72.245:/tmp/
 sudo rm /var/www/html/index.html
 sudo mv /tmp/* /var/www/html/</code></pre>
             <figure>
-                <img src="Captura2.png" alt="Interfaz MotoGP-Desktop cargada estáticamente en el navegador desde Apache">
+                <img src="captura2.png" alt="Interfaz MotoGP-Desktop cargada estáticamente en el navegador desde Apache">
                 <figcaption>Figura 2: Interfaz MotoGP-Desktop funcionando en Apache (HTML/CSS/JS)</figcaption>
             </figure>
         </section>
@@ -61,7 +61,7 @@ sudo mv /tmp/* /var/www/html/</code></pre>
 sudo systemctl restart apache2
 php -v && mysql --version</code></pre>
             <figure>
-                <img src="Captura3.png" alt="Consola mostrando versiones de PHP 8.1+ y MySQL 8.0+ instaladas">
+                <img src="captura3.png" alt="Consola mostrando versiones de PHP 8.1+ y MySQL 8.0+ instaladas">
                 <figcaption>Figura 3: Versiones PHP 8.1+ y MySQL 8.0+ instaladas y compatibles</figcaption>
             </figure>
         </section>
@@ -75,7 +75,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'DBUSER2025'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;</code></pre>
             <p>Posteriormente se importó el esquema: <code>sudo mysql UO295106_DB &lt; /var/www/html/php/esquema.sql</code></p>
             <figure>
-                <img src="Captura4.png" alt="Consola MySQL mostrando Query OK para el GRANT de privilegios al usuario DBUSER2025">
+                <img src="captura4.png" alt="Consola MySQL mostrando Query OK para el GRANT de privilegios al usuario DBUSER2025">
                 <figcaption>Figura 4: Usuario DBUSER2025 creado con privilegios administrativos completos</figcaption>
             </figure>
         </section>
@@ -84,7 +84,7 @@ FLUSH PRIVILEGES;</code></pre>
             <h2>6. Verificación Funcionalidad Completa</h2>
             <p>Se actualizó la configuración PHP con los parámetros: DB=UO295106_DB, User=DBUSER2025, Pass=DBPSWD2025, verificando la funcionalidad dinámica completa.</p>
             <figure>
-                <img src="Captura5.png" alt="Navegador mostrando datos dinámicos de pilotos y carreras cargados desde MySQL en la aplicación MotoGP-Desktop">
+                <img src="captura5.png" alt="Navegador mostrando datos dinámicos de pilotos y carreras cargados desde MySQL en la aplicación MotoGP-Desktop">
                 <figcaption>Figura 5: Aplicación completamente funcional con PHP + MySQL</figcaption>
             </figure>
         </section>

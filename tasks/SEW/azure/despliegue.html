@@ -11,7 +11,7 @@
         <header>
             <h1>INFORME DE DESPLIEGUE - PROYECTO MOTO GP DESKTOP</h1>
             <p><strong>Despliegue en Azure Cloud Computing</strong></p>
-            <p>Universidad [ESPACIO] - Seminarios Computación en la Nube - 2025</p>
+            <p>Universidad de Oviedo - Software Y Estandares Para La Web - 2025</p>
             
             <nav aria-label="Navegación principal">
                 <a href="#inicio">Inicio</a> | 
@@ -27,10 +27,6 @@
         <section id="inicio">
             <h2>1. Introducción</h2>
             <p>Este informe documenta el despliegue completo del proyecto MotoGP-Desktop en una instancia Ubuntu Linux de Azure, incluyendo instalación de Apache, PHP 8.1+ y MySQL 8.0+ con verificación de funcionalidad dinámica.</p>
-            <figure>
-                <img src="captura1.png" alt="Overview de la máquina virtual MotoGP-VM en Azure Portal mostrando IP pública 172.211.72.245 y estado Running">
-                <figcaption>Figura 1: Máquina virtual MotoGP-VM creada exitosamente (IP: 172.211.72.245)</figcaption>
-            </figure>
         </section>
 
         <section id="creacion-vm">
@@ -39,6 +35,10 @@
             <pre><code>az group create --name MotoGP_ResourceGroup --location westeurope
 az vm create --resource-group MotoGP_ResourceGroup --name MotoGP-VM --image Ubuntu2204 --admin-username azureuser --generate-ssh-keys --public-ip-sku Standard --size Standard_B1s
 az vm open-port --port 80 --resource-group MotoGP_ResourceGroup --name MotoGP-VM</code></pre>
+            <figure>
+                <img src="captura1.png" alt="Overview de la máquina virtual MotoGP-VM en Azure Portal mostrando IP pública 172.211.72.245 y estado Running">
+                <figcaption>Figura 1: Máquina virtual MotoGP-VM creada exitosamente (IP: 172.211.72.245)</figcaption>
+            </figure>
         </section>
 
         <section id="apache-estatico">
@@ -85,7 +85,11 @@ FLUSH PRIVILEGES;</code></pre>
             <p>Se actualizó la configuración PHP con los parámetros: DB=UO295106_DB, User=DBUSER2025, Pass=DBPSWD2025, verificando la funcionalidad dinámica completa.</p>
             <figure>
                 <img src="captura5.png" alt="Navegador mostrando datos dinámicos de pilotos y carreras cargados desde MySQL en la aplicación MotoGP-Desktop">
-                <figcaption>Figura 5: Aplicación completamente funcional con PHP + MySQL</figcaption>
+                <figcaption>Figura 5: Aplicación funcional con PHP</figcaption>
+            </figure>
+            <figure>
+                <img src="captura6.png" alt="Navegador mostrando panel de control de la base de datos MySQL en la aplicación MotoGP-Desktop">
+                <figcaption>Figura 6: Aplicación funcional con PHP + MySQL</figcaption>
             </figure>
         </section>
 

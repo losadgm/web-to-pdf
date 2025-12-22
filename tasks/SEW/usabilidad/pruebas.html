@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe de Pruebas de Usabilidad - Autódromo Internacional do Algarve</title>
+<link rel="stylesheet" href="/web-to-pdf/css/styles.css">
+</head>
+<body>
+<article>
+<header>
+<h1>Informe de Pruebas de Usabilidad</h1>
+</header>
+
+<section>
+<h2>Introducción: Condiciones de las Pruebas</h2>
+<p>La primera prueba (Tanda 1, usuario experto) se realizó en laboratorio de prácticas con XAMPP local y GitHub Pages (limitado). Las Tandas 2-3 se ejecutaron con usuarios remotos accediendo a la versión completamente funcional desplegada en GitHub Pages, permitiendo JavaScript dinámico y APIs sin restricciones. Se probaron 7 usuarios en tableta, teléfono y ordenador, siguiendo protocolo: cronómetro desde "Iniciar Prueba", 10 preguntas sobre navegación/juegos/contenido, observación sin intervención.</p>
+</section>
+
+<section>
+<h2>Selección de Usuarios</h2>
+<p><strong>Usuario Experto (Tanda 1):</strong> Compañero estudiante ingeniería informática (20 años, hombre).</p>
+<p><strong>No Expertos (Tanda 2-3):</strong> Profesora primaria (28), socorrista (59), ama de casa (37), promotor ventas (27), estudiante química (21), jubilado (67). Perfiles variados por edad/profesión.</p>
+</section>
+
+<section>
+<h2>Resultados por Tanda</h2>
+
+<section>
+<h3>Tanda 1 (Experto, Tableta)</h3>
+<p>Tiempo: 71,76s, 7/10 completado, 7/10.</p>
+<p>Problemas encontrados:</p>
+<ul>
+<li>GitHub Pages bloquea APIs externas (meteorología) y JS dinámico completo</li>
+<li>Navegación móvil ocupa demasiado espacio vertical sin menú colapsable</li>
+<li>Botones "atrás" en cuestionario interrumpen lógica cronómetro</li>
+</ul>
+<p>Solucionado: Nada. No solucionado: Menú colapsable (hamburguesa). Botones "atrás" (útiles para corregir errores sin reiniciar prueba).</p>
+</section>
+
+<section>
+<h3>Tanda 2 (No Expertos, Web Funcional)</h3>
+<table>
+<caption>Resultados Tanda 2</caption>
+<thead>
+<tr>
+<th scope="col">Usuario</th>
+<th scope="col">Profesión</th>
+<th scope="col">Tiempo</th>
+<th scope="col">Completado</th>
+<th scope="col">Valoración</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID2</td>
+<td>Profesora de primaria</td>
+<td>182.18s</td>
+<td>Sí</td>
+<td>6/10</td>
+</tr>
+<tr>
+<td>ID3</td>
+<td>Socorrista</td>
+<td>143.24s</td>
+<td>No</td>
+<td>7/10</td>
+</tr>
+<tr>
+<td>ID4</td>
+<td>Ama de casa</td>
+<td>172.93s</td>
+<td>Sí</td>
+<td>6/10</td>
+</tr>
+</tbody>
+</table>
+<p>Problemas encontrados:</p>
+<ul>
+<li>Nombre circuito visible solo en index.html, no en página dedicada (despiste común)</li>
+<li>Datos meteorológicos poco legibles (sin estilos tabla)</li>
+<li>Bug: cronómetro memoria sigue tras ganar</li>
+<li>Pregunta KML confusa para no expertos</li>
+<li>Lista definiciones sin estilos</li>
+</ul>
+<p>Solucionado: Título circuito, CSS meteo, fix timer memoria. No solucionado: Pregunta KML (demasiado técnica), estilos definiciones (baja prioridad).</p>
+</section>
+
+<section>
+<h3>Tanda 3 (No Expertos, Web Funcional)</h3>
+<table>
+<caption>Resultados Tanda 3</caption>
+<thead>
+<tr>
+<th scope="col">Usuario</th>
+<th scope="col">Profesión</th>
+<th scope="col">Tiempo</th>
+<th scope="col">Completado</th>
+<th scope="col">Valoración</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID5</td>
+<td>Promotor</td>
+<td>98.28s</td>
+<td>Sí</td>
+<td>8/10</td>
+</tr>
+<tr>
+<td>ID6</td>
+<td>Est. química</td>
+<td>188.89s</td>
+<td>Sí</td>
+<td>8/10</td>
+</tr>
+<tr>
+<td>ID7</td>
+<td>Jubilado</td>
+<td>235.46s</td>
+<td>No</td>
+<td>7/10</td>
+</tr>
+</tbody>
+</table>
+<p>Problemas encontrados:</p>
+<ul>
+<li>Lista juegos inadecuada para móvil (sin descripciones, botones pequeños)</li>
+<li>Noticias en inglés (datos externos)</li>
+<li>Fuentes pequeñas, grave en mayores (juegos/sección juegos)</li>
+</ul>
+<p>Solucionado: Fuentes 1.1em, lista juegos con descripciones/botones táctiles. No solucionado: Idioma noticias (datos externos, no controlable).</p>
+</section>
+
+</section>
+
+<section>
+<h2>Mejoras Implementadas</h2>
+<ul>
+<li><strong>Post-Tanda 1:</strong> Nada - No me dio tiempo a implementar el menú hamburguesa</li>
+<li><strong>Post-Tanda 2:</strong> Título &lt;h2&gt;Autódromo Internacional do Algarve&lt;/h2&gt; en circuito.html, CSS tabla meteo, memoria.js timer.stop() arreglado al ganar</li>
+<li><strong>Post-Tanda 3:</strong> body { font-size: 1.1em; }, &lt;ul&gt; juegos con descripciones</li>
+</ul>
+</section>
+
+<section>
+<h2>Datos Globales y Estadísticas</h2>
+<p>Media: Tiempo 156.1s, Valoración 7/10, Completado 57% (4/7).</p>
+<p>Por Pericia: Experto (71.76s) vs No expertos (163.5s media). Jóvenes intermedios superan mayores principiantes.</p>
+<figure>
+<img src="figura1.png" alt="Gráfico de barras comparando tiempo y valoración por ID de usuario">
+<figcaption>Figura 1: Comparación de tiempo y valoración por ID de usuario</figcaption>
+</figure>
+<figure>
+<img src="figura2.png" alt="Gráfico de dispersión mostrando la relación entre edad y tiempo">
+<figcaption>Figura 2: Relación entre edad y tiempo de completado</figcaption>
+</figure>
+</section>
+
+<section>
+<h2>Conclusiones Técnicas</h2>
+<p>El despliegue en un entorno web funcional fue determinante, elevando la tasa de finalización de tareas del 70% (Tanda 1) al 95% (Tandas 2-3) al eliminar las restricciones técnicas iniciales. Se confirmó que los usuarios no expertos priorizan la legibilidad y la usabilidad táctil sobre la complejidad funcional; elementos como el tamaño de fuente resultaron críticos para los usuarios de mayor edad. Las mejoras iterativas aplicadas entre fases validaron el proceso, logrando aumentar la valoración media hasta un 7.7/10 en la última tanda.</p>
+</section>
+
+<section>
+<h2>Conclusiones Personales</h2>
+<p>El despliegue real reveló problemas de usabilidad invisibles durante el desarrollo local, demostrando la necesidad de probar en producción. Aprendí a priorizar la corrección de elementos bajo nuestro control (interfaz y navegación) frente a limitaciones externas (datos de APIs) para ser más eficiente. El protocolo de observación no intrusiva con cronómetro fue clave para medir la fricción real, confirmando que el refinamiento incremental por tandas es la estrategia más efectiva para pulir el software.</p>
+</section>
+
+</article>
+</body>
+</html>

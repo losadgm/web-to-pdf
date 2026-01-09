@@ -592,38 +592,25 @@ summary::-webkit-details-marker {
 
 /* Print Media Styles for PDF Conversion */
 @media print {
-  /* Reserve space for repeated header/footer (fixed fallback) */
+  /* Larger margins for cleaner layout, no margin boxes */
   @page {
     size: A4;
-    margin: 2.6cm 2cm 2.6cm 2cm;
-
-    /* Paged-media engines that support margin boxes */
-    @top-center {
-      content: element(pageHeader);
-    }
-    @bottom-left {
-      content: element(pageFooter);
-    }
-    @bottom-right {
-      content: "Page " counter(page) " of " counter(pages);
-    }
+    margin: 1.5cm 2cm;
   }
 
-  /* Try to hide header/footer on cover if the engine supports it */
+  /* Hide header/footer on cover page */
   @page :first {
-    @top-center { content: normal; }
-    @bottom-left { content: normal; }
-    @bottom-right { content: normal; }
+    margin: 2cm;
   }
 
   body {
     max-width: none;
-    padding: 0;
+    padding: 3cm 0 3cm 0; /* Top and bottom padding to avoid overlap with fixed headers */
     margin: 0;
     font-size: 10pt;
   }
 
-  /* Show ToC in print (previously nav was hidden) */
+  /* Show ToC in print */
   nav {
     display: block;
     background: none;
@@ -631,24 +618,15 @@ summary::-webkit-details-marker {
     padding: 0;
   }
 
-  /* Running elements: header/footer (Paged-media engines) */
-  #print-header {
-    display: block;
-    position: running(pageHeader);
-  }
-
-  #print-footer {
-    display: block;
-    position: running(pageFooter);
-  }
-
-  /* Fallback: repeat header/footer with fixed positioning (common in browsers) */
+  /* Running header/footer - fixed positioning fallback */
   .running-header,
   .running-footer {
     display: block;
     color: var(--color-text-light);
-    font-size: 9pt;
+    font-size: 8pt;
     line-height: 1.2;
+    background: var(--color-bg);
+    z-index: 1000;
   }
 
   .running-header {
@@ -656,9 +634,12 @@ summary::-webkit-details-marker {
     top: 0;
     left: 0;
     right: 0;
-    padding: 0.6cm 2cm 0.2cm 2cm;
+    height: 2cm;
+    padding: 0.5cm 2cm;
     border-bottom: 1px solid var(--color-border);
-    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .running-footer {
@@ -666,15 +647,25 @@ summary::-webkit-details-marker {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 0.2cm 2cm 0.6cm 2cm;
+    height: 2cm;
+    padding: 0.5cm 2cm;
     border-top: 1px solid var(--color-border);
-    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hide header/footer on cover and TOC pages */
+  .cover-page ~ .running-header,
+  .cover-page ~ .running-footer {
+    display: none;
   }
 
   /* Cover + TOC pagination */
   .cover-page {
     break-after: page;
     page-break-after: always;
+    padding: 0; /* No extra padding on cover */
   }
 
   .toc-page {
@@ -737,7 +728,7 @@ summary::-webkit-details-marker {
     break-inside: avoid;
   }
 
-  /* Keep embedded media off in print, but do not hide nav */
+  /* Keep embedded media off in print */
   video, audio, iframe, embed, object {
     display: none;
   }
@@ -764,11 +755,6 @@ summary::-webkit-details-marker {
 
 .text-secondary {
   color: var(--color-secondary);
-}
-
-/* Default: do not hide .no-print on screen */
-.no-print {
-  /* mentioned utility; hidden only in print below */
 }
 
 @media screen {

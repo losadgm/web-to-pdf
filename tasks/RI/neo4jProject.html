@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neo4j Graph Database Project — Information Repositories (January 2026)</title>
+  <link rel="stylesheet" href="/web-to-pdf/css/styles.css">
+</head>
+<body>
+  <article>
+    <!-- Running elements for print header/footer (controlled by CSS @page margin boxes) -->
+    <div class="running-header" id="print-header">
+      <p>Neo4j Graph Database Project — Information Repositories — Universidad de Oviedo</p>
+    </div>
+
+    <div class="running-footer" id="print-footer">
+      <p>Pelayo Pérez Cueto (UO295426) · Marcos Losada García (UO295106)</p>
+    </div>
+
+    <!-- Cover page -->
+    <section class="cover-page" aria-label="Cover page">
+      <header>
+        <h1>Neo4j Graph Database Project</h1>
+
+        <p>Information Repositories</p>
+        <p>Universidad de Oviedo – Ingenieria de Software</p>
+        <p>January 2026</p>
+
+        <address>
+          <p>Pelayo Pérez Cueto — UO295426</p>
+          <p>Marcos Losada García — UO295106</p>
+        </address>
+      </header>
+    </section>
+
+    <!-- Table of contents page -->
+    <section class="toc-page page-break" aria-label="Table of contents">
+      <h2>Table of Contents</h2>
+
+      <nav aria-label="Table of contents">
+        <ol>
+          <li><a href="#application-domain">1. Application Domain</a></li>
+          <li><a href="#graph-instance-visualization">2. Graph Instance Visualization</a></li>
+          <li><a href="#graph-creation-code">3. Graph Creation Code</a></li>
+          <li>
+            <a href="#cypher-queries-results">4. Cypher Queries and Results</a>
+            <ol>
+              <li><a href="#elementary-queries">Elementary queries (A)</a></li>
+              <li><a href="#intermediate-queries">Intermediate queries (B)</a></li>
+              <li><a href="#advanced-queries">Advanced queries (C)</a></li>
+            </ol>
+          </li>
+          <li><a href="#conclusion">5. Conclusion</a></li>
+        </ol>
+      </nav>
+    </section>
+
+    <!-- Paper header (title/authors/abstract as an academic-style header) -->
+    <header class="paper-header page-break" aria-label="Paper header">
+      <h1>Neo4j Graph Database Project</h1>
+
+      <p><span>Information Repositories</span> — <span>Universidad de Oviedo</span> — <time datetime="2026-01">January 2026</time></p>
+
+      <p>Pelayo Pérez Cueto (UO295426) · Marcos Losada García (UO295106)</p>
+
+      <section class="abstract" aria-label="Abstract">
+        <h2>Abstract</h2>
+        <p>
+          This project models a university educational setting as a Neo4j graph, focusing on departments, courses, professors, and students.
+          Cypher queries demonstrate how graph-native traversal, aggregation, and path finding support typical academic questions about teaching,
+          tutoring, and enrollment relationships.
+        </p>
+      </section>
+    </header>
+
+    <section id="application-domain" class="page-break">
+      <h2>1. Application Domain</h2>
+
+      <p>
+        This database is a Neo4j database. It models the application domain of a university educational setting, with a particular emphasis on
+        educational activites and campus student engagement. There are four basic nodes in the database system: Department, Course, Professor,
+        and Student, each with a distinct code/ID.
+      </p>
+
+      <p>
+        Departments are the working spine of the institution that consists of courses, which are assigned to departments via the BELONGS_TO
+        relation based on the department responsible for the course. Professors are assigned to departments, showing their department, and to
+        courses via the TEACHES relation, which shows the courses they teach.
+      </p>
+
+      <p>
+        On the student side, the STUDENT entities hold basic educational data, with ENROLLED_IN relating them to courses, indicating which
+        classes each student is currently enrolled in. Further, the TUTORS relation connects professors to their students for teaching or
+        tutoring, which allows investigation into combinations of enrollment and tutoring graphs.
+      </p>
+
+      <figure>
+        <img src="figure1.png" alt="Diagram illustrating the university domain entities and relationships in the Neo4j model.">
+        <figcaption>Figure 1. Application domain overview (entities and relationships).</figcaption>
+      </figure>
+    </section>
+
+    <section id="graph-instance-visualization" class="page-break">
+      <h2>2. Graph Instance Visualization</h2>
+
+      <p>
+        The following diagram is a representation of our graph instance, showing the main entity types and relationship patterns.
+        This instance contains 26 nodes (3 departments, 8 courses, 5 professors, 10 students) and 56 relationships.
+      </p>
+
+      <figure>
+        <img src="figure2.png" alt="Visualization of the graph instance showing nodes and relationships for departments, courses, professors, and students.">
+        <figcaption>Figure 2. Graph instance visualization.</figcaption>
+      </figure>
+    </section>
+
+    <section id="graph-creation-code" class="page-break">
+      <h2>3. Graph Creation Code</h2>
+
+      <p>
+        This Cypher script sets up the university graph. It clears exiting data, adds some contraints, then creates nodes and finally makes all
+        the necessary relationships.
+      </p>
+
+      <p>The full script with all the code is attached in the <cite>graph.cypher</cite> file.</p>
+
+      <h3>Script preview</h3>
+      <pre><code>CREATE CONSTRAINT dept_code IF NOT EXISTS FOR (d:Department) REQUIRE d.code IS UNIQUE;
+
+CREATE CONSTRAINT course_code IF NOT EXISTS FOR (c:Course) REQUIRE c.code IS UNIQUE;
+
+CREATE CONSTRAINT prof_id IF NOT EXISTS FOR (p:Professor) REQUIRE p.id IS UNIQUE;
+
+CREATE CONSTRAINT student_id IF NOT EXISTS FOR (s:Student) REQUIRE s.id IS UNIQUE;
+
+
+// CREATE DEPARTMENTS (3 nodes)
+
+CREATE (d1:Department {code: 'MATH', name: 'mathematics'})
+
+CREATE (d2:Department {code: 'CS', name: 'computer_science'})
+
+CREATE (d3:Department {code: 'BA', name: 'business_administration'});
+
+
+// CREATE COURSES (8 nodes)
+
+CREATE (c1:Course {code: 'CALC', name: 'calculus', ects: 6, semester: 1, level: 1})
+
+CREATE (c2:Course {code: 'LINALG', name: 'linear_algebra', ects: 6, semester: 2, level: 1})
+
+CREATE (c3:Course {code: 'STAT', name: 'statistics', ects: 6, semester: 3, level: 2})
+
+...
+
+
+// CREATE RELATIONSHIPS: COURSE-DEPARTMENT (8 relationships)
+
+MATCH (c:Course {code: 'CALC'}), (d:Department {code: 'MATH'})
+CREATE (c)-[:BELONGS_TO]->(d);
+
+MATCH (c:Course {code: 'LINALG'}), (d:Department {code: 'MATH'})
+CREATE (c)-[:BELONGS_TO]->(d);
+
+MATCH (c:Course {code: 'STAT'}), (d:Department {code: 'MATH'})
+CREATE (c)-[:BELONGS_TO]->(d);
+
+MATCH (c:Course {code: 'PROG'}), (d:Department {code: 'CS'})
+CREATE (c)-[:BELONGS_TO]->(d);
+
+...</code></pre>
+    </section>
+
+    <section id="cypher-queries-results" class="page-break">
+      <h2>4. Cypher Queries and Results</h2>
+
+      <p>
+        This section presents six Cypher queries (Neo4j’s graph query language) as a progressive showcase: 2 elementary queries, 2 intermediate
+        queries, and 2 advanced queries that highlight graph-specific capabilities such as shortest paths and advanced list predicates/functions.
+      </p>
+
+      <p>The full script with all queries is attached in the <cite>queries.cypher</cite> file.</p>
+
+      <section id="elementary-queries">
+        <h3>Elementary queries (A)</h3>
+
+        <section aria-label="Query A1">
+          <h4>Query A1: List all students enrolled in first-year courses</h4>
+          <p>Objective: Retrieve students taking level 1 courses with course details.</p>
+
+          <pre><code>MATCH (s:Student)-[:ENROLLED_IN]->(c:Course)
+WHERE c.level = 1
+RETURN s.name AS Student,
+       s.year AS CurrentYear,
+       c.name AS Course,
+       c.code AS CourseCode
+ORDER BY s.name;</code></pre>
+
+          <h5>Results A1</h5>
+          <table>
+            <caption>Results A1: List all students enrolled in first-year courses.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Student</th>
+                <th scope="col">CurrentYear</th>
+                <th scope="col">Course</th>
+                <th scope="col">CourseCode</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Alice Brown</td><td>2</td><td>calculus</td><td>CALC</td></tr>
+              <tr><td>Alice Brown</td><td>2</td><td>linear_algebra</td><td>LINALG</td></tr>
+              <tr><td>Alice Brown</td><td>2</td><td>programming</td><td>PROG</td></tr>
+              <tr><td>Bob Smith</td><td>1</td><td>calculus</td><td>CALC</td></tr>
+              <tr><td>Bob Smith</td><td>1</td><td>programming</td><td>PROG</td></tr>
+              <tr><td>Bob Smith</td><td>1</td><td>business</td><td>BUS</td></tr>
+              <tr><td>David Lee</td><td>2</td><td>programming</td><td>PROG</td></tr>
+              <tr><td>Emma Davis</td><td>1</td><td>calculus</td><td>CALC</td></tr>
+              <tr><td>Emma Davis</td><td>1</td><td>business</td><td>BUS</td></tr>
+              <tr><td>Grace Taylor</td><td>2</td><td>linear_algebra</td><td>LINALG</td></tr>
+              <tr><td>Henry Moore</td><td>1</td><td>programming</td><td>PROG</td></tr>
+              <tr><td>Henry Moore</td><td>1</td><td>business</td><td>BUS</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section aria-label="Query A2">
+          <h4>Query A2: Count courses per department with average ECTS</h4>
+          <p>Objective: Aggregate course statistics by department.</p>
+
+          <pre><code>MATCH (c:Course)-[:BELONGS_TO]->(d:Department)
+RETURN d.name AS Department,
+       COUNT(c) AS TotalCourses,
+       AVG(c.ects) AS AvgECTS,
+       SUM(c.ects) AS TotalECTS
+ORDER BY TotalCourses DESC;</code></pre>
+
+          <h5>Results A2</h5>
+          <table>
+            <caption>Results A2: Count courses per department with average ECTS.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Department</th>
+                <th scope="col">TotalCourses</th>
+                <th scope="col">AvgECTS</th>
+                <th scope="col">TotalECTS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>mathematics</td><td>3</td><td>6.0</td><td>18</td></tr>
+              <tr><td>computer_science</td><td>3</td><td>6.0</td><td>18</td></tr>
+              <tr><td>business_administration</td><td>2</td><td>4.0</td><td>8</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <section id="intermediate-queries">
+        <h3>Intermediate queries (B)</h3>
+
+        <section aria-label="Query B1">
+          <h4>Query B1: High-performing students in advanced courses</h4>
+          <p>Objective: Find students with GPA &gt; 3.5 enrolled in level 3 courses, grouped by course.</p>
+
+          <pre><code>MATCH (s:Student)-[:ENROLLED_IN]->(c:Course)
+WHERE s.gpa > 3.5 AND c.level = 3
+RETURN c.name AS Course,
+       c.level AS Level,
+       COLLECT(s.name) AS HighPerformingStudents,
+       COUNT(s) AS StudentCount,
+       AVG(s.gpa) AS AvgGPA
+ORDER BY StudentCount DESC;</code></pre>
+
+          <h5>Results B1</h5>
+          <table>
+            <caption>Results B1: High-performing students in advanced courses.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Course</th>
+                <th scope="col">Level</th>
+                <th scope="col">HighPerformingStudents</th>
+                <th scope="col">StudentCount</th>
+                <th scope="col">AvgGPA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>operative_systems</td><td>3</td><td>[Carol White]</td><td>1</td><td>3.9</td></tr>
+              <tr><td>project_management</td><td>3</td><td>[Carol White]</td><td>1</td><td>3.9</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section aria-label="Query B2">
+          <h4>Query B2: Students NOT enrolled in any course from their tutor</h4>
+          <p>
+            Objective: Use an anti-join (“difference”) pattern to find students whose tutor teaches courses, but the student is not enrolled in
+            any of them. This query intentionally demonstrates list processing plus existence checks (COLLECT, NONE, EXISTS) in a single pipeline.
+          </p>
+
+          <pre><code>MATCH (p:Professor)-[:TUTORS]->(s:Student)
+MATCH (p)-[:TEACHES]->(c:Course)
+WITH s, p, COLLECT(c) AS tutorCourses
+WHERE NONE(course IN tutorCourses
+           WHERE EXISTS((s)-[:ENROLLED_IN]->(course)))
+RETURN s.name AS Student,
+       s.id AS StudentID,
+       p.name AS Tutor,
+       [c IN tutorCourses | c.name] AS TutorCoursesNotTaken
+ORDER BY s.name
+LIMIT 10;</code></pre>
+
+          <h5>Results B2</h5>
+          <table>
+            <caption>Results B2: Students NOT enrolled in any course from their tutor.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Student</th>
+                <th scope="col">StudentID</th>
+                <th scope="col">Tutor</th>
+                <th scope="col">TutorCoursesNotTaken</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Carol White</td><td>S003</td><td>Dr. Chen</td><td>[programming]</td></tr>
+              <tr><td>Frank Wilson</td><td>S006</td><td>Dr. Chen</td><td>[programming]</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <section id="advanced-queries">
+        <h3>Advanced queries (C)</h3>
+
+        <section aria-label="Query C1">
+          <h4>Query C1: Shortest paths connecting professors through students</h4>
+          <p>
+            Objective: Compute the shortest path between two professors across the academic network, showcasing graph-native path finding with
+            variable-length patterns and path projection.
+          </p>
+
+          <pre><code>MATCH path = shortestPath(
+  (p1:Professor {id: 'P001'})-[*]-(p2:Professor {id: 'P004'})
+)
+WHERE p1 <> p2
+RETURN [node IN nodes(path) | COALESCE(node.name, node.code)] AS PathNodes,
+       length(path) AS PathLength,
+       [rel IN relationships(path) | type(rel)] AS RelationshipTypes;</code></pre>
+
+          <h5>Results C1</h5>
+          <table>
+            <caption>Results C1: Shortest paths connecting professors through students.</caption>
+            <thead>
+              <tr>
+                <th scope="col">PathNodes</th>
+                <th scope="col">PathLength</th>
+                <th scope="col">RelationshipTypes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>[Dr. Martinez, Bob Smith, programming, Dr. Williams]</td>
+                <td>3</td>
+                <td>[TUTORS, ENROLLED_IN, TEACHES]</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section aria-label="Query C2">
+          <h4>Query C2: Strong course-based student connections</h4>
+          <p>
+            Objective: Build an implicit “student similarity” subgraph by finding pairs of students who share at least 2 courses; this
+            demonstrates multi-hop pattern matching, de-duplication logic, and subgraph-like extraction via aggregation.
+          </p>
+
+          <pre><code>MATCH (s1:Student)-[:ENROLLED_IN]->(c:Course)<-[:ENROLLED_IN]-(s2:Student)
+WHERE s1.id < s2.id        // avoid duplicates and self-pairs
+WITH s1, s2, COLLECT(DISTINCT c) AS sharedCourses
+WHERE SIZE(sharedCourses) >= 2
+RETURN s1.name AS Student1,
+       s2.name AS Student2,
+       [course IN sharedCourses | course.code] AS SharedCourseCodes,
+       SIZE(sharedCourses) AS SharedCourseCount
+ORDER BY SharedCourseCount DESC, Student1, Student2;</code></pre>
+
+          <h5>Results C2</h5>
+          <table>
+            <caption>Results C2: Strong course-based student connections.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Student1</th>
+                <th scope="col">Student2</th>
+                <th scope="col">SharedCourseCodes</th>
+                <th scope="col">SharedCourseCount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Alice Brown</td><td>Bob Smith</td><td>[PROG, CALC]</td><td>2</td></tr>
+              <tr><td>Alice Brown</td><td>David Lee</td><td>[PROG, STAT]</td><td>2</td></tr>
+              <tr><td>Alice Brown</td><td>Grace Taylor</td><td>[STAT, LINALG]</td><td>2</td></tr>
+              <tr><td>Bob Smith</td><td>Emma Davis</td><td>[BUS, CALC]</td><td>2</td></tr>
+              <tr><td>Bob Smith</td><td>Henry Moore</td><td>[BUS, PROG]</td><td>2</td></tr>
+              <tr><td>Frank Wilson</td><td>Iris Anderson</td><td>[ARCH, OS]</td><td>2</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </section>
+
+    <section id="conclusion" class="page-break">
+      <h2>5. Conclusion</h2>
+
+      <p>
+        What made Neo4j's usage intuitive for our university-related task is the fact that genuine queries are not necessarily table-shaped but
+        rather relation-shaped, involving questions like “Who teaches what?” “Who tutors whom?” and “How are students related to courses through
+        a series of hops.” This is easily done using Cypher because the structure of the query resembles the graph being searched.
+      </p>
+
+      <p>
+        One of the most obvious strengths is the ease of capturing many-to-many relationships without requiring an imposed relational structure,
+        and maintaining relationships as higher-order data. Having a fairly dense graph with 56 relationships, another strength is the ability
+        to take advantage of graph discovery, rather than being limited to immediate relationships for filtering.
+      </p>
+
+      <p>
+        In general, the expertise that a graph database has to offer is leveraged here: transforming static data into a graph where comprehending
+        the system requires following the graph, not just where to filter.
+      </p>
+    </section>
+  </article>
+</body>
+</html>

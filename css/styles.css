@@ -8,7 +8,7 @@
   --font-primary: 'Segoe UI', 'Lato', 'Helvetica Neue', Arial, sans-serif;
   --font-serif: 'Georgia', 'Cambria', 'Times New Roman', serif;
   --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
-  
+
   /* Color Palette - Professional but friendly */
   --color-primary: #2563eb; /* Vibrant blue */
   --color-secondary: #7c3aed; /* Purple accent */
@@ -42,6 +42,31 @@ body {
   text-align: left;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   PDF helpers (structure-only classes)
+   ============================================ */
+
+/* Explicit page breaks controlled from HTML */
+.page-break {
+  break-before: page;
+  page-break-before: always;
+}
+
+/* Cover + TOC semantics */
+.cover-page {
+  /* Screen: nothing special; Print rules are in @media print */
+}
+
+.toc-page {
+  /* Screen: nothing special; Print rules are in @media print */
+}
+
+/* Running header/footer placeholders (used for print repeating header/footer) */
+.running-header,
+.running-footer {
+  display: none;
 }
 
 /* Sectioning Content */
@@ -535,16 +560,16 @@ summary::-webkit-details-marker {
   html {
     font-size: 10pt;
   }
-  
+
   body {
     max-width: 100%;
     padding: 1rem 1.5rem;
   }
-  
+
   h1 {
     font-size: 1.8em;
   }
-  
+
   h2 {
     font-size: 1.5em;
   }
@@ -555,11 +580,11 @@ summary::-webkit-details-marker {
   body {
     padding: 1rem;
   }
-  
+
   h1 {
     font-size: 1.6em;
   }
-  
+
   h2 {
     font-size: 1.3em;
   }
@@ -567,18 +592,101 @@ summary::-webkit-details-marker {
 
 /* Print Media Styles for PDF Conversion */
 @media print {
+  /* Reserve space for repeated header/footer (fixed fallback) */
   @page {
     size: A4;
-    margin: 2cm;
+    margin: 2.6cm 2cm 2.6cm 2cm;
+
+    /* Paged-media engines that support margin boxes */
+    @top-center {
+      content: element(pageHeader);
+    }
+    @bottom-left {
+      content: element(pageFooter);
+    }
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+    }
   }
-  
+
+  /* Try to hide header/footer on cover if the engine supports it */
+  @page :first {
+    @top-center { content: normal; }
+    @bottom-left { content: normal; }
+    @bottom-right { content: normal; }
+  }
+
   body {
     max-width: none;
     padding: 0;
     margin: 0;
     font-size: 10pt;
   }
-  
+
+  /* Show ToC in print (previously nav was hidden) */
+  nav {
+    display: block;
+    background: none;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  /* Running elements: header/footer (Paged-media engines) */
+  #print-header {
+    display: block;
+    position: running(pageHeader);
+  }
+
+  #print-footer {
+    display: block;
+    position: running(pageFooter);
+  }
+
+  /* Fallback: repeat header/footer with fixed positioning (common in browsers) */
+  .running-header,
+  .running-footer {
+    display: block;
+    color: var(--color-text-light);
+    font-size: 9pt;
+    line-height: 1.2;
+  }
+
+  .running-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.6cm 2cm 0.2cm 2cm;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .running-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.2cm 2cm 0.6cm 2cm;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  /* Cover + TOC pagination */
+  .cover-page {
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .toc-page {
+    break-after: page;
+    page-break-after: always;
+  }
+
+  /* Ensure better page breaks */
+  article, section {
+    page-break-after: auto;
+  }
+
   /* Critical fix for pre blocks in PDF */
   pre {
     font-size: 7pt !important;
@@ -594,56 +702,52 @@ summary::-webkit-details-marker {
     margin: 1em 0 !important;
     page-break-inside: avoid;
   }
-  
+
   a {
     color: var(--color-text);
     border-bottom: 1px solid var(--color-text);
   }
-  
+
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.8em;
     color: var(--color-text-light);
   }
-  
+
   abbr[title]::after {
     content: " (" attr(title) ")";
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
     break-after: avoid;
   }
-  
+
   p, blockquote, figure, table {
     page-break-inside: avoid;
     break-inside: avoid;
   }
-  
+
   thead {
     display: table-header-group;
   }
-  
+
   tr, img {
     page-break-inside: avoid;
     break-inside: avoid;
   }
-  
-  nav, video, audio, iframe, embed, object {
+
+  /* Keep embedded media off in print, but do not hide nav */
+  video, audio, iframe, embed, object {
     display: none;
   }
-  
+
   img {
     max-width: 100% !important;
   }
-  
+
   table {
     box-shadow: none;
-  }
-  
-  /* Ensure better page breaks */
-  article, section {
-    page-break-after: auto;
   }
 }
 
@@ -662,8 +766,9 @@ summary::-webkit-details-marker {
   color: var(--color-secondary);
 }
 
+/* Default: do not hide .no-print on screen */
 .no-print {
-  display: none;
+  /* mentioned utility; hidden only in print below */
 }
 
 @media screen {
@@ -676,7 +781,7 @@ summary::-webkit-details-marker {
   .no-print {
     display: none !important;
   }
-  
+
   .print-only {
     display: block;
   }
